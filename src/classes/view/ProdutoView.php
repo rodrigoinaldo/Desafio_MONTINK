@@ -13,6 +13,16 @@ class ProdutoView{
         exit; // Certifique-se de chamar exit após o redirecionamento
     }
 
+    function excluirdados($id)
+    {
+        $produtoController = new ProdutosController();
+        $produtoController->excluir($id);
+
+        header("Location: index.php"); // Redireciona para a página de listagem após a atualização
+        exit; // Certifique-se de chamar exit após o redirecionamento
+    }
+
+
     function salvarINformacoes($dados)
     {
 
@@ -57,7 +67,7 @@ class ProdutoView{
                     <td>
 
                         <a href='index.php?acao=editar&id=".$produtos[$i]["id"]."'>Editar</a> 
-                        <a href='excluirProduto.php?id=".$produtos[$i]["id"]."'>Excluir</a>
+                        <a href='index.php?acao=excluir&id=".$produtos[$i]["id"]."'>Excluir</a>
                     </td>
                 </tr>
 

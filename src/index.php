@@ -4,6 +4,14 @@
     require_once "classes/view/ProdutoView.php";
     $produtoView = new ProdutoView();
     
+    if (isset($_GET['acao'])) {
+        
+        if ($_GET['acao'] == "excluir") {
+            echo "<script>alert('Produto excluído com sucesso!');</script>";
+            $produtoView->excluirdados($_GET['id']);
+
+        }  
+    }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
