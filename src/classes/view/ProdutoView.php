@@ -9,7 +9,8 @@ class ProdutoView{
         $produtoController = new ProdutosController();
         $produtoController->atualizar($dados['id'], $dados['nome'], $dados['preco'], $dados['variacao'], $dados['quantidade']);
 
-        return true;
+        header("Location: index.php"); // Redireciona para a página de listagem após a atualização
+        exit; // Certifique-se de chamar exit após o redirecionamento
     }
 
     function salvarINformacoes($dados)
@@ -51,49 +52,63 @@ class ProdutoView{
                     <td>". $produtos[$i]["id"] ."</td>
                     <td>". $produtos[$i]["nome"] ."</td>
                     <td>". $produtos[$i]["preco"] ."</td>
-                    <td>". $produtos[$i]["variacao"]  ."</td>
+                    <td>". $produtos[$i]["variacao"] ."</td>
                     <td>". $produtos[$i]["quantidade"] ."</td>
-               
+                    <td>
+
+                        <a href='index.php?acao=editar&id=".$produtos[$i]["id"]."'>Editar</a> 
+                        <a href='excluirProduto.php?id=".$produtos[$i]["id"]."'>Excluir</a>
+                    </td>
                 </tr>
 
-
-                <a href='editarProduto.php?id=".$produtos[$i]["id"]."'>Editar</a> |
-                <a href='excluirProduto.php?id=".$produtos[$i]["id"]."'>Excluir</a>
-
-                     <br/>
+                <br/>
             ";
         }
     }
 
-    function exibirFormulario()
+    function exibirFormulario($produto = null)// Se $produto for null, o formulário será para criar um novo produto
     {   
+
+        $produtoController = new ProdutosController();
+
+        if (isset($_GET['id'])) {
+            $produto = $produtoController->buscarPorId($_GET['id']);
+        }
+        
+
+        $id = $produto ? $produto['id'] : '';
+        $nome = $produto ? $produto['nome'] : '';
+        $preco = $produto ? $produto['preco'] : '';
+        $variacao = $produto ? $produto['variacao'] : '';
+        $quantidade = $produto ? $produto['quantidade'] : '';
+    
 
         echo '
             <form action="" method="POST">
 
                 <div>
-                    <input type="text" id="id" name="id" required value="" readonly>
+                    <input type="text" id="id" name="id" required value="'.$id.'" readonly >
                 </div>
 
 
                 <div>
                     <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" required value="">
+                    <input type="text" id="nome" name="nome" required value="'.$nome.'">
                 </div>
 
                 <div>
                     <label for="preco">Preço:</label>
-                    <input type="text" id="preco" name="preco" required value="">
+                    <input type="text" id="preco" name="preco" required value="'.$preco.'">
                 </div>
 
                 <div>
                     <label for="variacao">variação:</label>
-                    <input type="text" id="variacao" name="variacao" required value="">
+                    <input type="text" id="variacao" name="variacao" required value="'.$variacao.'">
                 </div>
 
                 <div>
                     <label for="quantidade">quantidade:</label>
-                    <input type="number" id="quantidade" name="quantidade" min="0" required value="">
+                    <input type="number" id="quantidade" name="quantidade" min="0" required value="'.$quantidade.'">
                 </div>
 
 
@@ -103,46 +118,46 @@ class ProdutoView{
     }
 
 
-    function exibirEdicao($dados){
+    // function exibirEdicao($dados){
 
-        $produtoController = new ProdutosController();
-        $produto = $produtoController->buscarPorId($dados);
+    //     $produtoController = new ProdutosController();
+    //     $produto = $produtoController->buscarPorId($dados);
 
-        var_dump($produto);
+    //     var_dump($produto);
 
-        echo '
-        <form action="" method="POST">
+    //     echo '
+    //     <form action="" method="POST">
 
-            <div>
-                <input type="text" id="id" name="id" required value="'.$produto["id"].'" readonly>
-            </div>
-
-
-            <div>
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required value="'.$produto["nome"].'">
-            </div>
-
-            <div>
-                <label for="preco">Preço:</label>
-                <input type="text" id="preco" name="preco" required value="'.$produto["preco"].'">
-            </div>
-
-            <div>
-                <label for="variacao">variação:</label>
-                <input type="text" id="variacao" name="variacao" required value="'.$produto["variacao"].'">
-            </div>
-
-            <div>
-                <label for="quantidade">quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" min="0" required value="'.$produto["quantidade"].'">
-            </div>
+    //         <div>
+    //             <input type="text" id="id" name="id" required value="'.$produto["id"].'" readonly>
+    //         </div>
 
 
-            <button type="submit" name="enviar" value="Enviar">Enviar</button>
-        </form>
-    ';
+    //         <div>
+    //             <label for="nome">Nome:</label>
+    //             <input type="text" id="nome" name="nome" required value="'.$produto["nome"].'">
+    //         </div>
 
-    }
+    //         <div>
+    //             <label for="preco">Preço:</label>
+    //             <input type="text" id="preco" name="preco" required value="'.$produto["preco"].'">
+    //         </div>
+
+    //         <div>
+    //             <label for="variacao">variação:</label>
+    //             <input type="text" id="variacao" name="variacao" required value="'.$produto["variacao"].'">
+    //         </div>
+
+    //         <div>
+    //             <label for="quantidade">quantidade:</label>
+    //             <input type="number" id="quantidade" name="quantidade" min="0" required value="'.$produto["quantidade"].'">
+    //         </div>
+
+
+    //         <button type="submit" name="enviar" value="Enviar">Enviar</button>
+    //     </form>
+    // ';
+
+    // }
 
 }

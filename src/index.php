@@ -5,19 +5,15 @@
     $produtoView = new ProdutoView();
     
 
-    // if($_SERVER["REQUEST_METHOD"] == "GET")
-    // {
-
-    //      if (!isset($_GET['id'])) {
-    //          return "ID do produto não fornecido.";
-    //      }
-
-    //      $produtoView->exibirEdicao($_GET['id']);
-    // }
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        var_dump($_POST);
-        $produtoView-> salvarINformacoes($_POST);
+        
+        if (isset($_POST['id']) && !empty($_POST['id'])) {
+            // Se o ID estiver presente, trata como edição
+            $produtoView->editarInformacoes($_POST);
+        } else {
+            // Caso contrário, trata como criação
+            $produtoView->salvarINformacoes($_POST);
+        }
 
     }
 
@@ -59,10 +55,9 @@
                     $protudoView = new ProdutoView();
                     $protudoView->listarProdutos();
                     
-                    if (!$protudoView->listarProdutos()) {
-                        echo "<tr><td colspan='5'>Nenhum produto cadastrado.</td></tr>";
-                    }
-
+                    // if (!$protudoView->listarProdutos()) {
+                    //     echo "<tr><td colspan='5'>Nenhum produto cadastrado.</td></tr>";
+                    // }    
                 ?>
             
             </tbody>
