@@ -9,24 +9,30 @@ class ProdutoService{
 
     public function salvar($nome, $preco, $variacao, $quantidade){
 
-        $conexao = new Conexao();
-        $estoqueService = new EstoqueService();
+        try {
+            $conexao = new Conexao();
+            $estoqueService = new EstoqueService();
 
-        $pdo=$conexao->conectar();
+            $pdo=$conexao->conectar();
 
-        $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco) VALUES (:nome, :preco)");
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':preco', $preco);
-        $stmt->execute();
-        
-        // Get the last inserted product ID
-        $produto_id = $pdo->lastInsertId();
+            $stmt = $pdo->prepare("INSERT INTO produtos (nome, preco) VALUES (:nome, :preco)");
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':preco', $preco);
+            $stmt->execute();
+            
+            // Get the last inserted product ID
+            $produto_id = $pdo->lastInsertId();
 
-        // Save the product variation
-        $estoqueService->salvar($produto_id, $variacao, $quantidade);
+            // Save the product variation
+            $estoqueService->salvar($produto_id, $variacao, $quantidade);
 
 
-        return $produto_id;
+            return $produto_id;
+        } catch (\Throwable $th) {
+
+            return $th->getMessage();
+
+        }
 
     }
 

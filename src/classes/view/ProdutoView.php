@@ -1,8 +1,8 @@
 <?php
-
 require_once 'classes/controller/ProdutosController.php';
 
 class ProdutoView{
+
 
     function editarInformacoes($dados)
     {
@@ -43,6 +43,8 @@ class ProdutoView{
                 echo "Erro ao salvar o produto.";
             }
 
+            exit;
+
     }
 
     function listarProdutos()
@@ -68,6 +70,8 @@ class ProdutoView{
 
                         <a href='index.php?acao=editar&id=".$produtos[$i]["id"]."'>Editar</a> 
                         <a href='index.php?acao=excluir&id=".$produtos[$i]["id"]."'>Excluir</a>
+                        <a href='index.php?acao=comprar&id=".$produtos[$i]["id"]."'>Comprar</a><br>
+
                     </td>
                 </tr>
 

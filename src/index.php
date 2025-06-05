@@ -1,16 +1,25 @@
 
 <?php
+    session_start();
 
     require_once "classes/view/ProdutoView.php";
+    require_once "classes/view/CarrinhoView.php";
+
     $produtoView = new ProdutoView();
+    $carrinhoView = new CarrinhoView();
     
     if (isset($_GET['acao'])) {
         
         if ($_GET['acao'] == "excluir") {
             echo "<script>alert('Produto excluído com sucesso!');</script>";
             $produtoView->excluirdados($_GET['id']);
-
         }  
+
+
+        if($_GET['acao'] == "comprar") {
+            echo "<script>alert('Produto comprado com sucesso!');</script>";
+            $carrinhoView->comprarProduto($_GET['id']);
+        }
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -70,6 +79,8 @@
             
             </tbody>
         </thead>
+
+        <a href="compra.php">Comprar Produtos</a>
 
     </main>
 </body>

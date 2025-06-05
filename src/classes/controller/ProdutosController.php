@@ -7,46 +7,48 @@ require_once 'classes/service/estoqueService.php';
 
 class ProdutosController{
 
-    function salvar($nome, $preco, $variacao, $quantidade){
+    private $produtoService;
+    private $estoqueService;
 
-        $produtoService = new ProdutoService();
+    public function __construct() {
+        $this->produtoService = new ProdutoService();
+        $this->estoqueService = new EstoqueService();
+    }
+
+    function salvar($nome, $preco, $variacao, $quantidade){
+        
         // Save the product and get the product ID
-        $produto_id = $produtoService->salvar($nome, $preco, $variacao, $quantidade);
+        $produto_id = $this->produtoService->salvar($nome, $preco, $variacao, $quantidade);
 
         return $produto_id;
     }
 
     function listar(){
 
-        $produtoService = new ProdutoService();
         // List all products
-        $produtos = $produtoService->listar();
+        $produtos = $this->produtoService->listar();
 
         return $produtos;
     }
 
     function buscarPorId($id){
 
-        $produtoService = new ProdutoService();
         // Get product by ID
-        $iten = $produtoService->buscarPorId($id);
+        $iten = $this->produtoService->buscarPorId($id);
 
         return $iten;
     }
 
     function excluir($id){
 
-        $produtoService = new ProdutoService();
         // Delete product by ID
-        $produtoService->excluir($id);
+        $this->produtoService->excluir($id);
 
     }
 
     function atualizar($id, $nome, $preco, $variacao, $quantidade){
-
-        $produtoService = new ProdutoService();
         // Update product by ID
-        $produtoService->atulizar($id, $nome, $preco, $variacao, $quantidade);
+        $this->produtoService->atulizar($id, $nome, $preco, $variacao, $quantidade);
 
     }
 
