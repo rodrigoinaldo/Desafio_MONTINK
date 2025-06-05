@@ -34,26 +34,7 @@ class CarrinhoView{
 
     function exibirCarrinho()
     {
-
-        if (isset($_SESSION['carrinho']) && !empty($_SESSION['carrinho'])) {
-
-            $precoTotal = 0;
-
-            echo "<h2>Carrinho de Compras</h2>";
-            echo "<ul>";
-            foreach ($_SESSION['carrinho'] as $produto) {
-                
-                echo "<li>{$produto['nome']} - R$ {$produto['preco']}</li>";
-                $precoTotal +=$produto['preco'];
-            }
-            echo "</ul>";
-        
-            echo "<h3>Total: R$ {$precoTotal}</h3>";
-            
-
-        } else {
-            echo "<h2>Carrinho vazio</h2>";
-        }
+        $this->carrinhoController->listarTodos();       
     }
 
 

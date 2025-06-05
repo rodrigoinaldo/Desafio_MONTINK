@@ -13,5 +13,9 @@ class CarrinhoController{
         $this->carrinhoService->addCarrinho($produto);
     }
 
+    public function listarTodos() {
+        $this->carrinhoService->listarTodos();
+    }
+
 
 }

@@ -1,7 +1,5 @@
 
 <?php
-    session_start();
-
     require_once "classes/view/ProdutoView.php";
     require_once "classes/view/CarrinhoView.php";
 

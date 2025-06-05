@@ -3,7 +3,8 @@
 
     class CarrinhoService{
 
-        public $valorTotal = 0;
+        public $subtotal = 0;
+        public $frete = null;
 
         public function addCarrinho($produto)
         {
@@ -30,10 +31,15 @@
                 echo "<ul>";
                 foreach ($_SESSION['carrinho'] as $produto) {
                     echo "<li>{$produto['nome']} - R$ {$produto['preco']}</li>";
-                    $this->valorTotal += $produto['preco'];
+                    $this->subtotal += $produto['preco'];
                 }
                 echo "</ul>";
-                echo "<h3>Total: R$ {$this->valorTotal}</h3>";
+
+                // Calcula o frete
+                $this->frete = ($this->subtotal > 52 && $this->subtotal < 169) ? 15 : "Frete de graça";
+                
+                echo "<h3>Total: R$ {$this->subtotal}</h3>";
+                echo "<h3>Frete: {$this->frete}</h3>";
             } else {
                 echo "<h2>Carrinho vazio</h2>";
             }
