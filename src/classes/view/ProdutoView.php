@@ -57,27 +57,24 @@ class ProdutoView{
             return false;
         }
 
-        for ($i=0; $i < count($produtos) ; $i++) {
-
+        foreach ($produtos as $produto) {
             echo "
                 <tr>
-                    <td>". $produtos[$i]["id"] ."</td>
-                    <td>". $produtos[$i]["nome"] ."</td>
-                    <td>". $produtos[$i]["preco"] ."</td>
-                    <td>". $produtos[$i]["variacao"] ."</td>
-                    <td>". $produtos[$i]["quantidade"] ."</td>
+                    <td>{$produto['id']}</td>
+                    <td>{$produto['nome']}</td>
+                    <td>{$produto['preco']}</td>
+                    <td>{$produto['variacao']}</td>
+                    <td>{$produto['quantidade']}</td>
                     <td>
-
-                        <a href='index.php?acao=editar&id=".$produtos[$i]["id"]."'>Editar</a> 
-                        <a href='index.php?acao=excluir&id=".$produtos[$i]["id"]."'>Excluir</a>
-                        <a href='index.php?acao=comprar&id=".$produtos[$i]["id"]."'>Comprar</a><br>
-
+                        <a href='index.php?acao=editar&id={$produto['id']}'>Editar</a> 
+                        <a href='index.php?acao=excluir&id={$produto['id']}'>Excluir</a>
+                        <a href='index.php?acao=comprar&id={$produto['id']}'>Comprar</a><br>
                     </td>
                 </tr>
-
                 <br/>
             ";
         }
+        
     }
 
     function exibirFormulario($produto = null)// Se $produto for null, o formulário será para criar um novo produto

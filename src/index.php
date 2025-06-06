@@ -6,21 +6,26 @@
     $produtoView = new ProdutoView();
     $carrinhoView = new CarrinhoView();
     
-    if (isset($_GET['acao'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
         
         if ($_GET['acao'] == "excluir") {
             echo "<script>alert('Produto excluído com sucesso!');</script>";
             $produtoView->excluirdados($_GET['id']);
         }  
 
+        
 
-        if($_GET['acao'] == "comprar") {
+        if($_GET['acao'] == "comprar")  {
+        
             echo "<script>alert('Produto comprado com sucesso!');</script>";
             $carrinhoView->comprarProduto($_GET['id']);
         }
+
+       
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
         
         if (isset($_POST['id']) && !empty($_POST['id'])) {
             // Se o ID estiver presente, trata como edição

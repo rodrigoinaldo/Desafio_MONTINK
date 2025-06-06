@@ -13,8 +13,15 @@ class CarrinhoController{
         $this->carrinhoService->addCarrinho($produto);
     }
 
-    public function listarTodos() {
-        $this->carrinhoService->listarTodos();
+    public function valorTotal() {
+        $valorTotal = $this->carrinhoService->valorTotal();
+
+        
+        return $valorTotal;
+    }
+
+    public function calcularFrete() {
+        return $this->carrinhoService->calcularFrete();
     }
 
 
